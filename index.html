@@ -8,6 +8,109 @@
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
     <body>
-        <h1 class="text-blue-500">Hola Mundo</h1>
+        <!-- Navbar -->
+        <nav class="bg-gradient-to-br from-gray-50 to-gray-300 shadow-md">
+            <div class="px-3 mx-auto">
+                <div class="flex justify-between">
+                    <!-- Recordar agrupar en contenedores las cosas que queremos que vayan del lado izquierdo y derecho -->
+                    <!-- Lado izquierdo -->
+                    <div class="flex space-x-4">
+                        <!-- Logo -->
+                        <a href="index.html" class="flex items-center py-2 px-2 text-gray-200">
+                            <img class="rounded-full mx-1" src="https://yt3.ggpht.com/uwbtBfh79HEuFa-Ud8nyY80_4ddgMQ-9jeiy90Z4A7uMZp_L_CHbh9m-oAic66TePLGrflwrsA=s176-c-k-c0x00ffffff-no-rj-mo" alt="" width="50">
+                            <span class="font-extrabold text-black">Anime Bass Tabs</span>
+                        </a>
+                        <!-- Nav lado izquierdo, si se desea -->
+                        <!-- <div class="hidden md:flex items-center space-x-1">
+                            <a class="py-5 px-3 text-gray-200 hover:text-black" href="#">Features</a>
+                            <a class="py-5 px-3 text-gray-200 hover:text-black" href="#">Pricing</a>
+                        </div> -->
+                    </div>
+                    <!-- Lado derecho -->
+                    <div class="hidden md:flex items-center space-x-1">
+                        <a class="rounded p-2 text-black hover:bg-gray-300" href="./pages/nosotros.html">About</a>
+                        <!-- Dropdown button -->
+                        <div class="flex flex-col overflow-visible float-right items-start">
+                            <button class="rounded p-2 dropBtn hover:bg-gray-300 transition duration-500" id="dropBtn">
+                                Productos
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline dropBtn" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                </svg>
+                            </button>
+                            <!-- Dropdown -->
+                            <div class="text-sm bg-gradient-to-br from-gray-50 to-gray-300 hidden absolute mt-12 flex-col rounded min-w-max" id="dropdown">
+                                <a href="./pages/productos.html" class="rounded px-2 py-1 hover:bg-gray-300">Elevadores</a>
+                                <a href="./pages/productos.html" class="rounded px-2 py-1 hover:bg-gray-300">Escaleras eléctricas</a>
+                                <a href="./pages/productos.html" class="rounded px-2 py-1 hover:bg-gray-300">Pasillos Electricos</a>
+                            </div>
+                        </div>
+                        <div class="flex flex-col overflow-visible float-right items-start">
+                            <button class="rounded p-2 dropBtn2 hover:bg-gray-300 transition duration-500" id="dropBtn2">
+                                Servicios
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline dropBtn2" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                </svg>
+                            </button>
+                            <!-- Dropdown -->
+                            <div class="text-sm bg-gradient-to-br from-gray-50 to-gray-300 hidden absolute mt-12 flex-col rounded min-w-max" id="dropdown2">
+                                <a href="./pages/servicios.html" class="rounded px-2 py-1 hover:bg-gray-300">Instalación</a>
+                                <a href="./pages/servicios.html" class="rounded px-2 py-1 hover:bg-gray-300">Mantenimiento</a>
+                                <a href="./pages/servicios.html" class="rounded px-2 py-1 hover:bg-gray-300">Modernización</a>
+                            </div>
+                        </div>
+                        <a href="./pages/faq.html" class="py-2 px-3 text-black rounded hover:bg-gray-300 hover:text-black transition duration-500">FAQ</a>
+                        <a href="./pages/contacto.html" class="py-2 px-3 text-black rounded hover:bg-gray-300 hover:text-black transition duration-500">Contacto</a>
+                    </div>
+                    <!-- Mobile button -->
+                    <div class="md:hidden flex items-center">
+                        <button class="mobile-menu-button">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <!-- mobile menu -->
+            <div class="mobile-menu hidden md:hidden p-1">
+                <a href="" class="text-center
+                block rounded hover:bg-gray-300 py-2 px-2 text-black">Nosotros</a>
+                <!-- Dropdown button 1-->
+                <div class="text-center flex flex-col">
+                    <button class="rounded p-2 m-1 dropBtnM hover:bg-gray-300" id="dropBtnM">
+                        Productos
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline dropBtnM" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                        </svg>
+                    </button>
+                    <!-- Dropdown -->
+                    <div class="bg-gray-200 hidden flex-col m-1 rounded text-sm" id="dropdownM">
+                        <a href="./pages/productos.html" class="rounded px-2 py-1 hover:bg-gray-300">Elevadores</a>
+                        <a href="./pages/productos.html" class="rounded px-2 py-1 hover:bg-gray-300">Escaleras eléctricas</a>
+                        <a href="./pages/productos.html" class="rounded px-2 py-1 hover:bg-gray-300">Elevadores de autos</a>
+                        <a href="./pages/productos.html" class="rounded px-2 py-1 hover:bg-gray-300">Elevadores para discapacitados</a>
+                    </div>
+                </div>
+                <!-- Dropdown button 2-->
+                <div class="text-center flex flex-col">
+                    <button class="rounded p-2 m-1 dropBtnM2 hover:bg-gray-300" id="dropBtnM2">
+                        Servicios
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline dropBtnM2" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                        </svg>
+                    </button>
+                    <!-- Dropdown -->
+                    <div class="bg-gray-200 hidden flex-col m-1 rounded text-sm" id="dropdownM2">
+                        <a href="./pages/servicios.html" class="rounded px-2 py-1 hover:bg-gray-300">Instalación</a>
+                        <a href="./pages/servicios.html" class="rounded px-2 py-1 hover:bg-gray-300">Mantenimiento</a>
+                        <a href="./pages/servicios.html" class="rounded px-2 py-1 hover:bg-gray-300">Modernización</a>
+                    </div>
+                </div>
+                <a href="./pages/faq.html" class="text-center block rounded hover:bg-gray-300 p-2 m-1 text-black">FAQ</a>
+                <a href="./pages/contacto.html" class="text-center block rounded hover:bg-gray-300 p-2 mx-1 text-black">Contacto</a>
+            </div>
+        </nav>
+        <!-- Fin de navbar -->
+        <script src="./js/main.js" ></script>
     </body>
 </html>
