@@ -2,6 +2,29 @@
     session_start();
     include('funciones.php');
     include('conexion.php');
+    $IdCancion = "";
+    if(isset($_POST["IdCancion"])){
+        $IdCancion = trim($_POST["IdCancion"]); 
+        if ($IdCancion == ""){
+            if(isset($_GET["IdCancion"])){
+                $IdCancion = $_GET["IdCancion"];
+                if ($IdCancion == ""){
+                    $IdCancion = "";
+                }
+            }
+        }
+    }    
+    else{ 
+        if ($IdCancion == ""){
+            $IdCancion = "";
+        }
+        if(isset($_GET["IdCancion"])){ 
+            $IdCancion = $_GET["IdCancion"];
+            if ($IdCancion == ""){
+                $IdCancion = "";
+            }
+        }    
+    }
     $IdArtista = "";
     if(isset($_POST["IdArtista"])){
         $IdArtista = trim($_POST["IdArtista"]); 
@@ -65,9 +88,9 @@
         function limpiar(){
             document.getElementById("nombre").value = "";
             document.getElementById("id").value = "";
-            document.getElementById("imagen").value = "";
-            document.getElementById("rutaImagen").value = "";
-            window.location.href = "artistas.php";
+            document.getElementById("pdf").value = "";
+            document.getElementById("artista").value = "";
+            window.location.href = "canciones.php";
         }
 
     </script>
@@ -79,37 +102,46 @@
     if ($_SESSION['tipoUsuario'] == 1 && $_SESSION['IdUsuario'] != 0) {
         ?>
         <div class="container text-center" style="padding-top: 50px;">
-            <form action="eArtistas.php?padre=1" method="post" class="form-container" enctype='multipart/form-data'>
+            <form action="eArtistas.php?padre=3" method="post" class="form-container" enctype='multipart/form-data'>
                 <div class="input-group mb-3">
                     <span class="input-group-text" id="basic-addon1">Nombre del Artista</span>
                     <?php
-                        if ($IdArtista != "") {
-                            $artista = "";
-                            $imagen = "";
-                            $query = "select Nombre, Imagen from artistas where IdArtista = '".$IdArtista."'";
+                        if ($IdCancion != "") {
+                            $nombre = "";
+                            $pdf = "";
+                            $url = "";
+                            $query = "select Nombre, RutaTab, Video from canciones where IdCancion = '".$IdCancion."'";
                             $result = mysqli_query($conn, $query);
                             while ($row = mysqli_fetch_row($result)) {
-                                $artista = $row[0];
-                                $imagen = $row[1];
+                                $nombre = $row[0];
+                                $pdf = $row[1];
+                                $url = $row[2];
                             }
-                            echo '<input type="text" class="form-control" id="nombre" name="nombre" value="'.$artista.'">';
-                            echo '<input type="hidden" name="IdArtista" id="id" value="'.$IdArtista.'">';
+                            llenaComboSaltado("select IdArtista, Nombre from artistas order by IdArtista",$IdArtista,"artista");
+                            echo '<input type="hidden" name="IdCancion" id="id" value="'.$IdCancion.'">';
+                            ?>
+                            <label class="input-group-text" for="inputGroupFile01">Nombre de la cancion</label>
+                            <input type="text" class="form-control" id="nombre" name="nombre" value="<?php echo $nombre; ?>">
+                            <?php
                             echo '</div><br>';
                             ?>
                             <div class="input-group mb-3">
-                                <?php
-                                    echo "<img src='../assets/artistas/img/".$imagen."' id='rutaImagen' class='img-fluid ' style='width: 100px; height: 100px;'/>"
-                                ?>
-                                <label class="input-group-text" for="inputGroupFile01">Upload2</label>
-                                <input type="file" class="form-control" id="imagen" name="imagen" value="<?php echo $imagen; ?>">
+                                <label class="input-group-text" for="inputGroupFile01">Pdf de la tab</label>
+                                <input type="file" class="form-control" id="pdf" name="pdf" value="<?php echo $pdf; ?>">
+                                <label class="input-group-text" for="inputGroupFile01">Url del video</label>
+                                <input type="text" class="form-control" id="url" name="url" value="<?php echo $url; ?>">
                             <?php
                         }else{
+                            llenaComboSaltado("select IdArtista, Nombre from artistas order by IdArtista","algo","artista")
                             ?>
-                            <input type="text" class="form-control" placeholder="Clickea en un artista para modificar el nombre" id="nombre" name="nombre">
+                            <label class="input-group-text" for="inputGroupFile01">Nombre de la cancion</label>
+                            <input type="text" class="form-control" id="nombre" name="nombre">
                             </div>
                             <div class="input-group mb-3">
-                                <label class="input-group-text" for="inputGroupFile01">Upload</label>
-                                <input type="file" id="name" name="imagen" class="form-control">
+                                <label class="input-group-text" for="inputGroupFile01">Pdf de la tab</label>
+                                <input type="file" id="pdf" name="pdf" class="form-control">
+                                <label class="input-group-text" for="inputGroupFile01">Url del video</label>
+                                <input type="text" id="url" name="url" class="form-control">
                             <?php
                         }
                     ?>
@@ -121,13 +153,13 @@
             <button class="btn btn-primary" onclick="limpiar()">Limpiar</button>
         </div>
         <div class="container text-center" style="padding-top: 50px;">
-            <form form action="eArtistas.php?padre=2" method="post" class="form-container">
+            <form form action="eArtistas.php?padre=4" method="post" class="form-container">
                 <table class="table table-dark table-striped">
                     <thead>
                         <tr>
                         <th scope="col">#</th>
-                        <th scope="col">Nombre</th>
-                        <th scope="col">Canciones</th>
+                        <th scope="col">Nombre de la cancion</th>
+                        <th scope="col">Nombre del artista</th>
                         <th scope="col">Eliminar</th>
                         </tr>
                     </thead>
@@ -136,20 +168,13 @@
                         $id = 0;
                         $nombre = "";
                         $videos = "";
-                        $query = "select IdArtista, Nombre from artistas order by IdArtista asc";
+                        $query = "select IdCancion, a.Nombre, c.Nombre, a.IdArtista from canciones c, artistas a where c.IdArtista = a.IdArtista order by IdCancion asc";
                         $result = mysqli_query($conn, $query);
                         while ($row = mysqli_fetch_row($result)) {
-                            $id = $row[0];
-                            $nombre = $row[1];
-                            $query = "select count(*) from canciones where IdArtista = '".$id."'";
-                            $result2 = mysqli_query($conn, $query);
-                            while ($row = mysqli_fetch_row($result2)) {
-                                $videos = $row[0];
-                                echo "<tr><td class = 'px-4 py-3 text-sm border'> <p class = 'font-semibold'>".$id."</p></td> \n";
-                                echo "<td class = 'px-4 py-3 text-sm border'> <a href='artistas.php?IdArtista=".$id."'><p class = 'font-semibold'>".$nombre."</p></a></td> \n";
-                                echo "<td class = 'px-4 py-3 text-sm border'> <p class = 'font-semibold'>".$videos."</p></td> \n";
-                                echo "<td class = 'px-4 py-3 text-sm border'><input type='checkbox' name='chk[]' value='".$id."'></td></tr>";
-                            }
+                            echo "<tr><td class = 'px-4 py-3 text-sm border'> <p class = 'font-semibold'>".$row[0]."</p></td> \n";
+                            echo "<td class = 'px-4 py-3 text-sm border'> <a href='canciones.php?IdCancion=".$row[0]."&IdArtista=".$row[3]."'><p class = 'font-semibold'>".$row[2]."</p></a></td> \n";
+                            echo "<td class = 'px-4 py-3 text-sm border'> <p class = 'font-semibold'>".$row[1]."</p></td> \n";
+                            echo "<td class = 'px-4 py-3 text-sm border'><input type='checkbox' name='chk[]' value='".$row[0]."'></td></tr>";
                         }
                         ?>
                     </tbody>
