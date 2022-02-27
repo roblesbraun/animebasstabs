@@ -1,3 +1,33 @@
+<?php
+
+    include('funciones.php');
+    include('conexion.php');
+    session_start();
+    $IdArtista = "";
+    if(isset($_POST["IdArtista"])){
+        $IdArtista = trim($_POST["IdArtista"]); 
+        if ($IdArtista == ""){
+            if(isset($_GET["IdArtista"])){
+                $IdArtista = $_GET["IdArtista"];
+                if ($IdArtista == ""){
+                    $IdArtista = "";
+                }
+            }
+        }
+    }    
+    else{ 
+        if ($IdArtista == ""){
+            $IdArtista = "";
+        }
+        if(isset($_GET["IdArtista"])){ 
+            $IdArtista = $_GET["IdArtista"];
+            if ($IdArtista == ""){
+                $IdArtista = "";
+            }
+        }    
+    }
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,6 +37,7 @@
     <title>Anime Bass Tabs</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="shortcut icon" href="../assets/img/absLogo.png"/>
+    <link rel="stylesheet" href="../styles/styles.css">
 </head>
     <body>
         <!-- Navbar -->
@@ -40,12 +71,6 @@
                                 <path d="M18 3a1 1 0 00-1.196-.98l-10 2A1 1 0 006 5v9.114A4.369 4.369 0 005 14c-1.657 0-3 .895-3 2s1.343 2 3 2 3-.895 3-2V7.82l8-1.6v5.894A4.37 4.37 0 0015 12c-1.657 0-3 .895-3 2s1.343 2 3 2 3-.895 3-2V3z" />
                             </svg>
                             <span>Tabs</span>
-                        </a>
-                        <a href="./videos.html" class="flex items-center py-2 px-3 text-black rounded hover:bg-gray-300 hover:text-black transition duration-500">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd" />
-                            </svg>
-                            <span>Videos</span>
                         </a>
                         <a href="./horario.html" class="flex items-center py-2 px-3 text-black rounded hover:bg-gray-300 hover:text-black transition duration-500">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
@@ -99,12 +124,6 @@
                     </svg>
                     <span>Tabs</span>
                 </a>
-                <a href="./videos.html" class="flex justify-center items-center py-2 px-3 text-black rounded hover:bg-gray-300 hover:text-black transition duration-500">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd" />
-                    </svg>
-                    <span>Videos</span>
-                </a>
                 <a href="./horario.html" class="flex justify-center items-center py-2 px-3 text-black rounded hover:bg-gray-300 hover:text-black transition duration-500">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                         <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd" />
@@ -138,35 +157,44 @@
         <!-- Fin de navbar -->
         
         <!-- Content -->
-        <div class="container flex flex-col space-y-4 mx-auto p-7">
-            <h1 class="text-xl text-center lg:text-left md:text-left sm:text-left">Nombre del artista</h1>
-            <hr class="my-3">
-            <!-- Cards container -->
-            <div class="grid justify-items-center content-evenly gap-10 lg:gap-10 md:gap-10 sm:gap-10 grid-cols-1 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1">
-                <div class="rounded-xl flex flex-col justify-center items-center">
-                    <iframe class="rounded-lg max-w-max max-h-max" src="https://www.youtube.com/embed/3w6cMuaJT_A" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                    <p>Video</p>
+        <div class="container mx-auto p-7 flex flex-col space-y-4">
+        <?php
+            $sql = "select IdArtista, Nombre, Imagen from artistas where IdArtista='".$IdArtista."'";
+            $result = mysqli_query($conn, $sql);
+            while ($row = mysqli_fetch_row($result)) {
+                ?>
+                <div class="flex items-center space-x-4 justify-center ">
+                    <img class="rounded-full w-16 lg:w-24 md:w-24 sm:w-24" src="../assets/artistas/img/<?php echo $row[2]; ?>" alt="">
+                    <h1 class="text-2xl font-bold lg:text-4xl md:text-4xl sm:text-4xl font"><?php echo $row[1]; ?></h1>
                 </div>
-                <div class="rounded-xl flex flex-col justify-center items-center">
-                    <iframe class="rounded-lg max-w-max max-h-max" src="https://www.youtube.com/embed/3w6cMuaJT_A" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                    <p>Video</p>
+                <hr style="height:3px;border:none;color:#333;background-color:#333;" />
+                
+                <?php
+            }
+            $sql = "select  RutaTab, Video, Nombre from canciones where IdArtista='".$IdArtista."' order by Nombre asc" ;
+            $result = mysqli_query($conn, $sql);
+            while ($row = mysqli_fetch_row($result)) {
+                ?>
+                <div class="w-full lg:w-max md:w-max sm:w-max">
+                    <details class="p-6 rounded-lg bg-gray-100">
+                        <summary class="text-sm lg:text-lg md:text-lg sm:text-lg leading-6 text-slate-900 font-semibold select-none">
+                            <?php echo $row[2]; ?>
+                        </summary>
+                        <div class="mt-3 text-sm leading-6 text-slate-600 flex flex-col justify-center items-center space-y-4">
+                            <iframe class="rounded-lg" src="<?php echo $row[1]; ?>" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                            <a class="w-36 p-2 rounded-lg shadow flex justify-center items-center bg-gray-300 space-x-1" href="./showpdf.php?pdf=<?php echo $row[0]; ?>">
+                                <span>Descargar Tab</span>
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="text-cyan-4000">
+                                    <path fill-rule="evenodd" d="M2 9.5A3.5 3.5 0 005.5 13H9v2.586l-1.293-1.293a1 1 0 00-1.414 1.414l3 3a1 1 0 001.414 0l3-3a1 1 0 00-1.414-1.414L11 15.586V13h2.5a4.5 4.5 0 10-.616-8.958 4.002 4.002 0 10-7.753 1.977A3.5 3.5 0 002 9.5zm9 3.5H9V8a1 1 0 012 0v5z" clip-rule="evenodd" />
+                                </svg>
+                            </a>
+                        </div>
+                    </details>
                 </div>
-                <div class="rounded-xl flex flex-col justify-center items-center">
-                    <iframe class="rounded-lg max-w-max max-h-max" src="https://www.youtube.com/embed/3w6cMuaJT_A" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                    <p>Video</p>
-                </div>
-                <div class="rounded-xl flex flex-col justify-center items-center">
-                    <iframe class="rounded-lg max-w-max max-h-max" src="https://www.youtube.com/embed/3w6cMuaJT_A" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                    <p>Video</p>
-                </div>
-                <div class="rounded-xl flex flex-col justify-center items-center">
-                    <iframe class="rounded-lg max-w-max max-h-max" src="https://www.youtube.com/embed/3w6cMuaJT_A" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                    <p>Video</p>
-                </div>
-                <div class="rounded-xl flex flex-col justify-center items-center">
-                    <iframe class="rounded-lg max-w-max max-h-max" src="https://www.youtube.com/embed/3w6cMuaJT_A" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                    <p>Video</p>
-                </div>
+                <?php
+            }
+        ?>
+            
         </div>
 
         <!-- Footer -->
