@@ -127,7 +127,8 @@
                             ?>
                             <div class="input-group mb-3">
                                 <label class="input-group-text" for="inputGroupFile01">Pdf de la tab</label>
-                                <input type="file" class="form-control" id="pdf" name="pdf" value="<?php echo $pdf; ?>">
+                                <?php echo '<input type="file" class="form-control" id="pdf" name="pdf" value="">'; ?>
+                                <?php echo '<input type="hidden" class="form-control" name="pdf2" value="'.$pdf.'">'; ?>
                                 <label class="input-group-text" for="inputGroupFile01">Url del video</label>
                                 <input type="text" class="form-control" id="url" name="url" value="<?php echo $url; ?>">
                             <?php

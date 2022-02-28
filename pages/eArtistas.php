@@ -77,7 +77,11 @@
             $imagen=$_FILES['imagen']['name'];
             $tipo = $_FILES['imagen']['type'];
             $temp = $_FILES['imagen']['tmp_name'];
-            modificaArtista($IdArtista, $_POST["nombre"], $imagen, $tipo, $temp);
+            if ($imagen == "") {
+                modificaArtista($IdArtista, $_POST["nombre"], $_POST['imagenOriginal'], $tipo, "NO");
+            }else{
+                modificaArtista($IdArtista, $_POST["nombre"], $imagen, $tipo, $temp);
+            }
         }else{
             //imagen
             $imagen=$_FILES['imagen']['name'];
@@ -100,6 +104,10 @@
             $pdf = $_FILES['pdf']['name'];
             $tipoPdf = $_FILES['pdf']['type'];
             $tempPdf = $_FILES['pdf']['tmp_name'];
+            if ($pdf == "") {
+                $pdf = $_POST['pdf2'];
+                $tempPdf = "NO";
+            }
             modificaCancion($_POST["nombre"], $_POST["artista"],$_POST["url"], $pdf, $tipoPdf, $tempPdf, $IdCancion);        
         }else{
             $pdf = $_FILES['pdf']['name'];

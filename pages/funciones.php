@@ -118,19 +118,35 @@
     function modificaArtista($IdArtista, $nombre, $imagen, $tipo, $temp){
         include('conexion.php');
         $id = 0;
-        $query = "update artistas set Nombre= '".$nombre."' , Imagen = '".$IdArtista."-".$imagen."' where IdArtista ='".$IdArtista."'";
+        
+        
+        if ($temp != "NO") {
+            $query = "update artistas set Nombre= '".$nombre."' , Imagen = '".$IdArtista."-".$imagen."' where IdArtista ='".$IdArtista."'";
+            move_uploaded_file($temp,'../assets/artistas/img/'.$IdArtista.'-'.$imagen);
+        }else{
+            $query = "update artistas set Nombre= '".$nombre."' where IdArtista ='".$IdArtista."'";
+        }
         //echo $query;
         $result = mysqli_query($conn,$query);
-        move_uploaded_file($temp,'../assets/artistas/img/'.$IdArtista.'-'.$imagen);
         header("Location: artistas.php");
         
     }
     function modificaCancion($nombre, $artista, $url, $pdf, $tipoPdf, $tempPdf, $IdCancion){
         include('conexion.php');
-        $url = 'https://www.youtube.com/embed/' . substr($url, 32, null);
-        $query = "update canciones set Nombre= '".$nombre."' , RutaTab = '".$IdCancion.'-'.$pdf."', Video = '".$url."', IdArtista = '".$artista."' where IdCancion ='".$IdCancion."'";
+        $findme   = 'https://www.youtube.com/embed/';
+        $pos = strpos($url, $findme);
+        if ($pos === false) {
+            $url = 'https://www.youtube.com/embed/' . substr($url, 32, null);
+        }
+        
+        if ($tempPdf != "NO") {
+            $query = "update canciones set Nombre= '".$nombre."' , RutaTab = '".$IdCancion.'-'.$pdf."', Video = '".$url."', IdArtista = '".$artista."' where IdCancion ='".$IdCancion."'";
+            move_uploaded_file($tempPdf,'../assets/canciones/tabs/'.$IdCancion.'-'.$pdf);
+        }else{
+            $query = "update canciones set Nombre= '".$nombre."', Video = '".$url."', IdArtista = '".$artista."' where IdCancion ='".$IdCancion."'";
+        }
         $result = mysqli_query($conn,$query);
-        move_uploaded_file($tempPdf,'../assets/canciones/tabs/'.$IdCancion.'-'.$pdf);
+        
         header("Location: canciones.php");
     }
     function eliminaArtistas($arreglo, $i, $bandera){

@@ -100,15 +100,16 @@
                                 <?php
                                     echo "<img src='../assets/artistas/img/".$imagen."' id='rutaImagen' class='img-fluid ' style='width: 100px; height: 100px;'/>"
                                 ?>
-                                <label class="input-group-text" for="inputGroupFile01">Upload2</label>
-                                <input type="file" class="form-control" id="imagen" name="imagen" value="<?php echo $imagen; ?>">
+                                <label class="input-group-text" for="inputGroupFile01">Upload Image 2</label>
+                                <input type="file" class="form-control" id="imagen" name="imagen">
+                                <?php echo '<input type="hidden" class="form-control" name="imagenOriginal" value="'.$imagen.'">'; ?>
                             <?php
                         }else{
                             ?>
                             <input type="text" class="form-control" placeholder="Clickea en un artista para modificar el nombre" id="nombre" name="nombre">
                             </div>
                             <div class="input-group mb-3">
-                                <label class="input-group-text" for="inputGroupFile01">Upload</label>
+                                <label class="input-group-text" for="inputGroupFile01">Upload Image</label>
                                 <input type="file" id="name" name="imagen" class="form-control">
                             <?php
                         }
