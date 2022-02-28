@@ -94,6 +94,9 @@
 
     function insertaCancion($nombre, $artista, $url, $pdf, $tipoPdf, $tempPdf){
         include('conexion.php');
+        // $mystring = 'https://www.youtube.com/embed/';
+        // $findme   = 'https://www.youtube.com/watch?v='; // 0,32 - 32,-1
+        $url = 'https://www.youtube.com/embed/' . substr($url, 32, null);
         $id = 0;
         $query = "INSERT INTO canciones (IdArtista, Video, Nombre) VALUES ('".$artista."','".$url."','".$nombre."')";
         $result = mysqli_query($conn,$query);
@@ -124,6 +127,7 @@
     }
     function modificaCancion($nombre, $artista, $url, $pdf, $tipoPdf, $tempPdf, $IdCancion){
         include('conexion.php');
+        $url = 'https://www.youtube.com/embed/' . substr($url, 32, null);
         $query = "update canciones set Nombre= '".$nombre."' , RutaTab = '".$IdCancion.'-'.$pdf."', Video = '".$url."', IdArtista = '".$artista."' where IdCancion ='".$IdCancion."'";
         $result = mysqli_query($conn,$query);
         move_uploaded_file($tempPdf,'../assets/canciones/tabs/'.$IdCancion.'-'.$pdf);

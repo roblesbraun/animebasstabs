@@ -181,7 +181,8 @@
                             <?php echo $row[2]; ?>
                         </summary>
                         <div class="mt-3 text-sm leading-6 text-slate-600 flex flex-col justify-center items-center space-y-4">
-                            <iframe class="rounded-lg" src="<?php echo $row[1]; ?>" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                            <?php echo '<iframe class="rounded-lg" src="'.$row[1].'" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>';?>
+                            
                             <a class="w-36 p-2 rounded-lg shadow flex justify-center items-center bg-gray-300 space-x-1" href="./showpdf.php?pdf=<?php echo $row[0]; ?>">
                                 <span>Descargar Tab</span>
                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="text-cyan-4000">
