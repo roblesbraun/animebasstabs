@@ -53,6 +53,31 @@
                     </div>
                 </div>
             </div>
+            <br><br>
+            <div class="row">
+                <div class="col-md-4 text-center">
+                    <div class="card">
+                        <img src="../assets/img/youtube.svg" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">Subir imagen al Banner</h5>
+                            <p class="card-text">Sube una imagen al banner</p>
+                            <br>
+                            <a href="upBanner.php" class="btn btn-primary">Subir imagen del Banner</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 text-center">
+                    <div class="card">
+                        <img src="../assets/img/youtube.svg" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">Eliminar imagen del Banner</h5>
+                            <p class="card-text">Eliminar imagen del banner que ya no se use</p>
+                            <br>
+                            <a href="deleteItems.php?padre=3" class="btn btn-primary">Eliminar del Banner</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
         <?php
     }else{

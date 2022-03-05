@@ -40,7 +40,7 @@
         if($bandera == "1"){ //Bien admin
             header("Location: admin.php");
         }else if($bandera == "2"){ //Bien user
-            header("Location: ../index.html");
+            header("Location: ../index.php");
         }else { //Error
             header("Location: createAccount.php?bandera=".$bandera);
         }

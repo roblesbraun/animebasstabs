@@ -20,7 +20,7 @@
                     <!-- Lado izquierdo -->
                     <div class="flex space-x-4">
                         <!-- Logo -->
-                        <a href="./index.html" class="flex items-center py-2 px-2 text-gray-200">
+                        <a href="./index.php" class="flex items-center py-2 px-2 text-gray-200">
                             <img class="rounded-full mx-1" src="./assets/img/absLogo.png" alt="" width="50">
                             <span class="font-extrabold text-black">Anime Bass Tabs</span>
                         </a>
@@ -32,7 +32,7 @@
                     </div>
                     <!-- Lado derecho -->
                     <div class="hidden md:flex items-center space-x-1">
-                        <a href="./index.html" class="flex items-center py-2 px-3 text-black rounded hover:bg-gray-300 hover:text-black transition duration-500">
+                        <a href="./index.php" class="flex items-center py-2 px-3 text-black rounded hover:bg-gray-300 hover:text-black transition duration-500">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                                 <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" />
                             </svg>
@@ -84,7 +84,7 @@
             </div>
             <!-- mobile menu -->
             <div class="mobile-menu hidden md:hidden p-1">
-                <a href="./index.html" class="flex justify-center items-center py-2 px-3 text-black rounded hover:bg-gray-300 hover:text-black transition duration-500">
+                <a href="./index.php" class="flex justify-center items-center py-2 px-3 text-black rounded hover:bg-gray-300 hover:text-black transition duration-500">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                         <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" />
                     </svg>
@@ -130,62 +130,45 @@
         <!-- <h1 class="text-center text-3xl lg:text-5xl my-7">Welcome!</h1> -->
         <!-- Carousel -->
         <div id="carouselExampleCaptions" class="carousel slide relative" data-bs-ride="carousel">
-            <div class="carousel-indicators absolute right-0 bottom-0 left-0 flex justify-center p-0 mb-4">
-                <button
-                type="button"
-                data-bs-target="#carouselExampleCaptions"
-                data-bs-slide-to="0"
-                class="active"
-                aria-current="true"
-                aria-label="Slide 1"
-                ></button>
-                <button
-                type="button"
-                data-bs-target="#carouselExampleCaptions"
-                data-bs-slide-to="1"
-                aria-label="Slide 2"
-                ></button>
-                <button
-                type="button"
-                data-bs-target="#carouselExampleCaptions"
-                data-bs-slide-to="2"
-                aria-label="Slide 3"
-                ></button>
-            </div>
             <div class="carousel-inner relative w-full overflow-hidden">
-                <div class="carousel-item active relative float-left w-full">
-                <img
-                    src="https://mdbootstrap.com/img/Photos/Slides/img%20(15).jpg"
-                    class="block w-full"
-                    alt="..."
-                />
-                <div class="carousel-caption hidden md:block absolute text-center">
-                    <h5 class="text-xl">First slide label</h5>
-                    <p>Some representative placeholder content for the first slide.</p>
-                </div>
-                </div>
-                <div class="carousel-item relative float-left w-full">
-                <img
-                    src="https://mdbootstrap.com/img/Photos/Slides/img%20(22).jpg"
-                    class="block w-full"
-                    alt="..."
-                />
-                <div class="carousel-caption hidden md:block absolute text-center">
-                    <h5 class="text-xl">Second slide label</h5>
-                    <p>Some representative placeholder content for the second slide.</p>
-                </div>
-                </div>
-                <div class="carousel-item relative float-left w-full">
-                <img
-                    src="https://mdbootstrap.com/img/Photos/Slides/img%20(23).jpg"
-                    class="block w-full"
-                    alt="..."
-                />
-                <div class="carousel-caption hidden md:block absolute text-center">
-                    <h5 class="text-xl">Third slide label</h5>
-                    <p>Some representative placeholder content for the third slide.</p>
-                </div>
-                </div>
+        <?php
+            include('./pages/conexion.php');
+            $query = "SELECT IdBanner, Titulo, Descripcion, Imagen from banner order by IdBanner asc";
+            $result = mysqli_query($conn, $query);
+            $i = 0;
+            if (mysqli_num_rows($result)>0) {
+                while ($row=mysqli_fetch_array($result)){
+                    if ($i==0) {
+                        ?>
+                            <div class="carousel-item active relative float-left w-full">
+                                <img
+                                    src="./assets/banner/<?php echo $row[3];?>"
+                                    class="block w-full"
+                                />
+                                <div class="carousel-caption hidden md:block absolute text-center">
+                                    <h5 class="text-xl"><?php echo $row[1];?></h5>
+                                    <p><?php echo $row[2];?></p>
+                                </div>
+                            </div>
+                        <?php
+                    }else{
+                        ?>
+                            <div class="carousel-item relative float-left w-full">
+                                <img
+                                    src="./assets/banner/<?php echo $row[3];?>"
+                                    class="block w-full"
+                                />
+                                <div class="carousel-caption hidden md:block absolute text-center">
+                                    <h5 class="text-xl"><?php echo $row[1];?></h5>
+                                    <p><?php echo $row[2];?></p>
+                                </div>
+                            </div>
+                        <?php
+                    }
+                    $i++;
+                }
+            }
+        ?>
             </div>
             <button
                 class="carousel-control-prev absolute top-0 bottom-0 flex items-center justify-center p-0 text-center border-0 hover:outline-none hover:no-underline focus:outline-none focus:no-underline left-0"
