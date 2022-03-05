@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 05-03-2022 a las 20:12:58
+-- Tiempo de generación: 05-03-2022 a las 21:30:35
 -- Versión del servidor: 10.4.17-MariaDB
 -- Versión de PHP: 8.0.0
 
@@ -41,6 +41,26 @@ INSERT INTO `artistas` (`IdArtista`, `Nombre`, `Imagen`) VALUES
 (7, 'Afterglow', '7-afterglowres.jpg'),
 (8, 'Chaba', '8-e23d5cc1f4a143f2a789be73b65d6a.jpg'),
 (9, 'Frederic', '9-fredericres-2.jpg');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `banner`
+--
+
+CREATE TABLE `banner` (
+  `IdBanner` int(11) NOT NULL,
+  `Imagen` varchar(255) NOT NULL,
+  `Titulo` varchar(255) NOT NULL,
+  `Descripcion` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `banner`
+--
+
+INSERT INTO `banner` (`IdBanner`, `Imagen`, `Titulo`, `Descripcion`) VALUES
+(5, '5-n1.jpg', 'Titulo 5', 'Prueba con la nueva funcion');
 
 -- --------------------------------------------------------
 
@@ -141,6 +161,12 @@ ALTER TABLE `artistas`
   ADD PRIMARY KEY (`IdArtista`);
 
 --
+-- Indices de la tabla `banner`
+--
+ALTER TABLE `banner`
+  ADD PRIMARY KEY (`IdBanner`);
+
+--
 -- Indices de la tabla `canciones`
 --
 ALTER TABLE `canciones`
@@ -176,6 +202,12 @@ ALTER TABLE `usuarios`
 --
 ALTER TABLE `artistas`
   MODIFY `IdArtista` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
+-- AUTO_INCREMENT de la tabla `banner`
+--
+ALTER TABLE `banner`
+  MODIFY `IdBanner` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `canciones`
