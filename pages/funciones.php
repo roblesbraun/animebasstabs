@@ -47,7 +47,7 @@
         include('conexion.php');
         $conteo = 0;
         $query = "select count(*) from usuarios where Correo = '".$correo."' and Contraseña = '".$password."'";
-        echo $query;
+        //echo $query;
         $result = mysqli_query($conn, $query);
         while ($row = mysqli_fetch_row($result)) {
             $conteo = $row[0];
@@ -95,8 +95,16 @@
     function insertaCancion($nombre, $artista, $url, $pdf, $tipoPdf, $tempPdf){
         include('conexion.php');
         // $mystring = 'https://www.youtube.com/embed/';
-        // $findme   = 'https://www.youtube.com/watch?v='; // 0,32 - 32,-1
-        $url = 'https://www.youtube.com/embed/' . substr($url, 32, null);
+        $findme   = 'https://www.youtube.com/watch?v='; 
+        $pos = strpos($url, $findme);
+        if ($pos === false) {
+            $findme2 = "view";
+            $pos2 = strpos($url, $findme2);
+            $url = substr($url,0, $pos2)."preview";
+        } else {
+            $url = 'https://www.youtube.com/embed/'.substr($url, 32, strlen($url)-1);
+        }
+        
         $id = 0;
         $query = "INSERT INTO canciones (IdArtista, Video, Nombre) VALUES ('".$artista."','".$url."','".$nombre."')";
         $result = mysqli_query($conn,$query);
@@ -136,7 +144,11 @@
         $findme   = 'https://www.youtube.com/embed/';
         $pos = strpos($url, $findme);
         if ($pos === false) {
-            $url = 'https://www.youtube.com/embed/' . substr($url, 32, null);
+            $url = 'https://www.youtube.com/embed/'.substr($url, 32, strlen($url)-1);
+        }else{
+            $findme2 = "view";
+            $pos2 = strpos($url, $findme2);
+            $url = substr($url,0, $pos2)."preview";
         }
         
         if ($tempPdf != "NO") {

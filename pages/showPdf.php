@@ -22,6 +22,12 @@
             }
         }    
     }
+    header("Content-type: application/pdf");
+    header("Content-Disposition: inline; filename=".$pdf);
+    readfile("../assets/canciones/tabs/".$pdf);
+    //echo '<iframe src="../assets/canciones/tabs/'.$pdf.'" style="width:100%; height:700px;" frameborder="0"></iframe>';
+    //echo '<iframe src="../assets/canciones/tabs/'.$pdf.'" style="width:100vw; height:100vh;" frameborder="0" sandbox="allow-downloads"></iframe>';
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -31,14 +37,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <title>Tab</title>
-    
 </head>
 <body>
-    <?php
-    header("Content-type: application/pdf");
-    header("Content-Disposition: inline; filename=".$pdf);
-    readfile("../assets/canciones/tabs/".$pdf);
-    ?>
+    
     
 </body>
 </html>
