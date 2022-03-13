@@ -148,21 +148,21 @@
                 <div class="container flex flex-col space-y-4 mx-auto p-7">
                         <h1 class="text-5xl text-center lg:text-left md:text-left sm:text-left"><?php echo $letter; ?></h1>
                         <hr style="height:3px;border:none;color:#333;background-color:#333; margin-bottom: 2rem;">
+                        <div class="grid justify-items-center content-evenly gap-5 lg:gap-10 md:gap-10 sm:gap-10 grid-cols-3 lg:grid-cols-6 md:grid-cols-4">
                 <?php
                 while ($row = mysqli_fetch_row($result)) {
                     ?>
                         <!-- Cards container -->
-                        <div class="grid justify-items-center content-evenly gap-4 grid-cols-3 lg:grid-cols-7 md:grid-cols-4">
-                            <?php echo "<a href='./sVideos.php?IdArtista=".$row[0]."'>"; ?>
-                                <div class="h-28 w-24 bg-gray-100 lg:h-44 lg:w-32 md:h-32 md:w-28 rounded-xl flex flex-col justify-center items-center shadow duration-300 hover:bg-gray-100 hover:shadow-xl hover:-translate-y-1 hover:scale-80 ">
-                                    <?php echo '<img class="rounded-full w-12 lg:w-20 md:w-16 sm:w-14" src="../assets/artistas/img/'.$row[2].'" alt="">' ;?>
-                                    <p class="text-center text-xs lg:text-base md:text-sm mt-2"><?php echo $row[1]; ?></p>
-                                </div>
-                            </a>
-                        </div>
+                        <?php echo "<a href='./sVideos.php?IdArtista=".$row[0]."'>"; ?>
+                            <div class="h-28 w-24 bg-gray-100 lg:h-44 lg:w-32 md:h-32 md:w-28 rounded-xl flex flex-col justify-center items-center shadow duration-300 hover:bg-gray-100 hover:shadow-xl hover:-translate-y-1 hover:scale-80 ">
+                                <?php echo '<img class="rounded-full w-12 lg:w-20 md:w-16 sm:w-14" src="../assets/artistas/img/'.$row[2].'" alt="">' ;?>
+                                <p class="text-center text-xs lg:text-base md:text-sm mt-2"><?php echo $row[1]; ?></p>
+                            </div>
+                        </a>
                     <?php
                 }
                 ?>
+                    </div>
                 </div>
                 <?php
             }            
