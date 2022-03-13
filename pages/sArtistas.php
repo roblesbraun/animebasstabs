@@ -141,7 +141,7 @@
                 $contador = $row[0];
             }
             if ($contador != 0) {
-                $sql = "select IdArtista, Nombre, Imagen from artistas where Nombre like '".$letter."%'";
+                $sql = "select IdArtista, Nombre, Imagen from artistas where Nombre like '".$letter."%' ORDER BY Nombre";
                 $result = mysqli_query($conn, $sql);
                 ?>
                 <!-- Content -->
