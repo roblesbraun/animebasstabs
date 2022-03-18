@@ -168,6 +168,38 @@
             }            
         }
         ?>
+        <!-- Content -->
+        <div class="container flex flex-col space-y-4 mx-auto p-7">
+            <h1 class="text-5xl text-center lg:text-left md:text-left sm:text-left">Otros</h1>
+            <hr style="height:3px;border:none;color:#333;background-color:#333; margin-bottom: 2rem;">
+            <!-- Cards container -->
+            <div class="grid justify-items-center content-evenly gap-4 grid-cols-3 lg:grid-cols-7 md:grid-cols-4">
+        <?php
+        for ($i=0; $i < 10 ; $i++) { 
+            $contador = 0;
+            $sql = "select count(*) from artistas where Nombre like '".$i."%'";
+            $result = mysqli_query($conn, $sql);
+            while ($row = mysqli_fetch_row($result)) {
+                $contador = $row[0];
+            }
+            if ($contador != 0) {
+                $sql = "select IdArtista, Nombre, Imagen from artistas where Nombre like '".$i."%' ORDER BY Nombre";
+                $result = mysqli_query($conn, $sql);
+                while ($row = mysqli_fetch_row($result)) {
+                    ?>
+                            <?php echo "<a href='./sVideos.php?IdArtista=".$row[0]."'>"; ?>
+                                <div class="h-28 w-24 bg-gray-100 lg:h-44 lg:w-32 md:h-32 md:w-28 rounded-xl flex flex-col justify-center items-center shadow duration-300 hover:bg-gray-100 hover:shadow-xl hover:-translate-y-1 hover:scale-80 ">
+                                    <?php echo '<img class="rounded-full w-12 lg:w-20 md:w-16 sm:w-14" src="../assets/artistas/img/'.$row[2].'" alt="">' ;?>
+                                    <p class="text-center text-xs lg:text-base md:text-sm mt-2"><?php echo $row[1]; ?></p>
+                                </div>
+                            </a>
+                    <?php
+                }
+            }
+        }
+        ?>
+            </div>
+        </div>
         <!-- Footer -->
         <footer class="text-gray-600 body-font">
             <div class="container px-5 py-8 mx-auto flex items-center sm:flex-row flex-col">
